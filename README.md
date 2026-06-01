@@ -1,35 +1,55 @@
-# Sistema de Parceiros Plugin
+# Sistema de Parceiros
 
-## Description
+Plugin WordPress para gerenciamento e exibição de parceiros/parcerias com filtros, shortcode e design moderno.
 
-The Sistema de Parceiros plugin is designed to manage partners and partnerships within a WordPress site. It provides filtering capabilities and uses shortcodes to display partners on the frontend.
+## Funcionalidades
 
-## Features
+- **CRUD completo** — Adicionar, editar, excluir e buscar parceiros pelo admin
+- **Shortcode `[parceiros]`** — Exiba os parceiros em qualquer página/post
+- **Filtros em tempo real** — Filtrar por setor, categoria e nome no frontend
+- **Cards modernos** — Layout responsivo em grid com animações e ícones SVG
+- **WhatsApp integrado** — Botão de contato abre o WhatsApp com o número do parceiro
+- **Logo padronizada** — Container fixo com `object-fit: contain` sem deformar
+- **Admin estilizado** — Tabela com paginação, ordenação e busca
+- **Upload de logo** — Suporte a JPG, PNG, GIF e WebP (máx. 2MB)
 
-- **Partner Management:** Easily add, edit, and delete partners through the WordPress admin interface.
-- **Customizable Display:** Use shortcodes to display partners on any page or post.
-- **Filtering:** Filter partners by category or sector.
-- **Responsive Design:** The plugin is designed to be responsive and look good on all devices.
+## Instalação
 
-## Installation
+1. Faça upload da pasta `parceiros` para `/wp-content/plugins/`
+2. Ative o plugin em **Plugins** no WordPress
+3. Acesse o menu **Parceiros** no admin
 
-1.  Upload the entire plugin directory to the `/wp-content/plugins/` directory.
-2.  Activate the plugin through the 'Plugins' menu in WordPress.
-
-## Usage
+## Uso
 
 ### Shortcode
 
-Use the `[parceiros]` shortcode to display partners on any page or post.
+```
+[parceiros]
+[parceiros categoria="Desenvolvimento"]
+[parceiros setor="Tecnologia" limite="5"]
+```
 
-#### Attributes
+### Atributos
 
--   `categoria`: Filter partners by category.
--   `setor`: Filter partners by sector.
--   `limite`: Limit the number of partners displayed.
+| Atributo   | Descrição                     | Padrão |
+|------------|-------------------------------|--------|
+| `categoria`| Filtra por categoria          | vazio  |
+| `setor`    | Filtra por setor              | vazio  |
+| `limite`   | Número máximo de parceiros    | -1     |
 
-Example: `[parceiros categoria="Technology" limite="5"]`
+### Template
 
-## Contributing
+Use `obter_parceiros($filtros)` em qualquer template PHP:
 
-Contributions are welcome! Please submit any issues or pull requests on the GitHub repository.
+```php
+$parceiros = obter_parceiros(array('setor' => 'Tecnologia'));
+foreach ($parceiros as $p) {
+    echo $p->nome;
+}
+```
+
+## Requisitos
+
+- WordPress 5.0+
+- PHP 7.0+
+- MySQL / MariaDB
